@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CRUD operations using JSON in JavaScript</h1>
+        <br />
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Student Email</th>
+                    <th>Student Address</th>
+                </tr>
+            </thead>
+            <tbody id="tblbody">
+            </tbody>
+        </table>
+    </div>
+<script type="text/javascript">
+
+    //json array
+    var customerArray = [
+        {
+            "id": 101,
+            "customer_name": "prasi",
+            "customer_email": "prasi@gmail.com",
+            "address": "Coimbatore"
+        },
+        {
+            "id": 105,
+            "customer_name": "deepika",
+            "customer_email": "deepika@gmail.com",
+            "address": "Erode"
+        },
+        {
+            "id": 102,
+            "customer_name": "dhanu",
+            "customer_email": "dhanu@gmail.com",
+            "address": "Karur"
+        },
+        {
+            "id": 103,
+            "customer_name": "akshaya",
+            "customer_email": "akshaya@gmail.com",
+            "address": "Thirunelveli"
+        },
+        {
+            "id": 104,
+            "customer_name": "sri",
+            "customer_email": "sri@gmail.com",
+            "address": "Madurai"
+        },
+        {
+            
+            "id": 106,
+            "customer_name": "sasi",
+            "customer_email": "sasi@gmail.com",
+            "address": "Madurai"
+        }
+        
+    ]
+
+    //bind json data to html table
+    bindjsondata();
+
+
+
+    function bindjsondata() {
+
+        document.getElementById('tblbody').innerHTML = "";
+        //iterate through each object in Json array and create row
+        customerArray.forEach(function (item, index) {
+            var btnEditId = "btnedit" + item.id;
+            var btnDeleteId = "btndelete" + item.id;
+            var tableRow = "<tr Id='" + item.id + "'   data-CustomerID='" + item.id + "'   data-CustomerName='" + item.customer_name + "' data-email='" + item.customer_email + "' data-Address='" + item.address + "'>"
+                + "<td class='td-data'>" + item.id + "</td>"
+                + "<td class='td-data'>" + item.customer_name + "</td>"
+                + "<td class='td-data'>" + item.customer_email + "</td>"
+                + "<td class='td-data'>" + item.address + "</td>"
+                + "<td class='td-data'>" +
+                "<button id='" + btnEditId + "' class='btn btn-info btn-xs btn-editcustomer' onclick='showEditRow(" + item.id + ")'><i class='fa fa-pencil' aria-hidden='true'></i>Edit</button>" +
+                "<button id='" + btnDeleteId + "' class='btn btn-danger btn-xs btn-deleteCustomer' onclick='deleteCustomerRow(" + item.id + ")'><i class='fa fa-trash' aria-hidden='true'>Delete</button>"
+                + "</td>"
+                + "</tr>";
+            document.getElementById('tblbody').innerHTML += tableRow;
+        })
+
+        //add tr for adding record in the table at the bottom
+        var AddRow = "<tr>"
+            + "<td class='td-data'></td>"
+            + "<td class='td-data'><input type='text' id='txtCustomerName' placeholder='name..'></td>"
+            + "<td class='td-data'><input type='email' id='txtemail' placeholder='email..'></td>"
+            + "<td class='td-data'><input type='text' id='txtAddress' placeholder='address..'></td>"
+            + "<td class='td-data'>" + "<button id= 'btnaddCustomer' onclick='addCustomer()' class='btn btn-success'> <i class='fa fa-plus-circle' aria-hidden='true'></i>Add</button>" + "</td>"
+            + "</tr>";
+        document.getElementById('tblbody').innerHTML += AddRow;
+    }
+
+    function CreateUniqueCustomerID() {
+        //generate Unique number for Id
+        const ID = Date.now();
+        return ID;
+    }
+
+    function addCustomer() {
+        var customerID = CreateUniqueCustomerID();
+        var customerName = document.getElementById("txtCustomerName").value;
+        if (!customerName) {
+            alert('Please enter name!')
+            return false;
+        }
+        var email = document.getElementById("txtemail").value;
+        if (!email) {
+            alert('Please enter email!')
+            return false;
+        }
+        var emailfilter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!emailfilter.test(email)) {
+            alert('Please enter a valid email address!');
+            return false;
+        }
+
+        var address = document.getElementById("txtAddress").value;
+        if (!address) {
+            alert('Please enter address!')
+            return false;
+        }
+        //creating object and push to json array
+        customerArray.push({
+            "id": customerID,
+            "customer_name": customerName,
+            "customer_email": email,
+            "address": address
+        });
+        document.getElementById('txtCustomerName').value = "";
+        document.getElementById('txtemail').value = "";
+        document.getElementById('txtAddress').value = "";
+
+        bindjsondata();
+    };
+
+    function showEditRow(CustomerID) {
+
+        //select tr of whose button was clicked
+        var CustomerRow = document.getElementById(CustomerID);
+
+        //returns array of all elements with class "row-data" in CustomerRow
+        var data = CustomerRow.querySelectorAll(".td-data");
+
+        var customerID = data[0].innerHTML;
+        var customerName = data[1].innerHTML;
+        var customeremail = data[2].innerHTML;
+        var address = data[3].innerHTML;
+
+        data[0].innerHTML = '<input name="txtupdate_CustomerID"  disabled id="txtupdate_CustomerID" value="' + customerID + '"/>';
+        data[1].innerHTML = '<input name="txtupdate_CustomerName" id="txtupdate_CustomerName" value="' + customerName + '"/>';
+        data[2].innerHTML = '<input name="txtupdate_email" id="txtupdate_email" value="' + customeremail + '"/>';
+        data[3].innerHTML = '<input name="txtupdate_Address" id="txtupdate_Address" value="' + address + '"/>';
+
+
+        data[4].innerHTML =
+            "<button class='btn btn-primary btn-xs btn-updateCustomer' onclick='updateCustomers(" + customerID + ")'>" +
+            "<i class='fa fa-pencil' aria-hidden='true'></i>Update</button>"
+            + "<button class='btn btn-warning btn-xs btn-cancelupdate' onclick='cancelUpdate(" + customerID + ")'><i class='fa fa-times' aria-hidden='true'></i>Cancel</button>"
+            + "<button class='btn btn-danger btn-xs btn-deleteCustomer' onclick='deleteCustomerRow(" + customerID + ")'>"
+            + "<i class='fa fa-trash' aria-hidden='true'></i>Delete</button>"
+    }
+    function cancelUpdate(CustomerID) {
+
+
+        var btneditId = "btnedit" + CustomerID;
+        var btndeleteId = "btndelete" + CustomerID;
+
+        //select tr of whose button was clicked
+        var CustomerRow = document.getElementById(CustomerID);
+        var data = CustomerRow.querySelectorAll(".td-data");
+
+        var customerName = CustomerRow.getAttribute("data-CustomerName");
+        var address = CustomerRow.getAttribute("data-Address");
+        var email = CustomerRow.getAttribute("data-email");
+
+
+        data[0].innerHTML = CustomerID;
+        data[1].innerHTML = customerName;
+        data[2].innerHTML = email;
+        data[3].innerHTML = address;
+
+
+        var actionbtn = "<button id='" + btneditId + "' class='btn btn-info btn-xs btn-editcustomer' onclick='showEditRow(" + CustomerID + ")'><i class='fa fa-pencil' aria-hidden='true'></i>Edit</button>" +
+            "<button id='" + btndeleteId + "' class='btn btn-danger btn-xs btn-deleteCustomer' onclick='deleteCustomerRow(" + CustomerID + ")'><i class='fa fa-trash' aria-hidden='true'>Delete</button>"
+        data[4].innerHTML = actionbtn;
+    }
+    function deleteCustomerRow(CustomerID) {
+        //remove object from json array
+        customerArray.splice(customerArray.findIndex(a => a.id === CustomerID), 1)
+        bindjsondata();
+    }
+    function updateCustomers(CustomerID) {
+        //select tr of whose button was clicked
+        var CustomerRow = document.getElementById(CustomerID);
+        var data = CustomerRow.querySelectorAll(".td-data");
+
+        var customerName = data[1].querySelector("#txtupdate_CustomerName").value;
+        var email = data[2].querySelector("#txtupdate_email").value;
+        var address = data[3].querySelector("#txtupdate_Address").value;
+
+        //Updating json object using filter
+        var customerObJ = customerArray.filter((x) => x.id == CustomerID).pop();
+        if (customerObJ != null) {
+            customerObJ.customer_name = customerName;
+            customerObJ.customer_email = email;
+            customerObJ.address = address;
+        }
+        bindjsondata();
+    }
+
+    id.sort(function(a,b) {return a - b});
+    console.log(id);
+</script>
+</body>
+</html>

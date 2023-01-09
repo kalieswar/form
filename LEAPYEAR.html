@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p> ENTER THE YEAR:
+        <input id="year" type="number" min="0" max="2100" step="100">
+    </p>
+    <button onclick="fun()">Check</button>
+    <p id="resPara"; style="display:none ;">
+        It is <span id="res">Year.</span>
+
+    </p>
+    <script>
+        var yr, temp;
+        function fun()
+        {
+            yr= parseInt(document.getElementById("year").value);
+            if(yr){
+                temp = document.getElementById("resPara");
+                temp.style.display = "block";
+                if((yr%4==0) && (yr%100!== 0))
+                document.getElementById("res").innerHTML = " a Leap";
+                else if (yr%400 == 0)
+                document.getElementById("res").innerHTML = " a Leap";
+                else
+                document.getElementById("res").innerHTML = " not a Leap";
+            }
+        }
+
+
+        
+
+    </script>
+
+</body>
+</html>

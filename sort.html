@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h>Concat:</h>
+    <p id="demo"></p>
+    <h>Sort:</h>
+    <p id="demo2"></p>
+    <p id="demo3"></p>
+    <script>
+        let arr1=["john","david"];
+        let arr2=["emil","tobias","linus"];
+        let arr3=["johnson","peter","micheal"];
+        let students = arr1.concat(arr2,arr3);
+        document.getElementById("demo").innerHTML= students;
+
+        let arra1=["john","david"];
+        let arra2=["emil","tobias","linus"];
+        let arra3=["johnson","peter","micheal"];
+        let student = arr1.concat(arr2,arr3);
+        document.getElementById("demo2").innerHTML= student.sort();
+
+        let numbers=[...new Set([1,2,2,3,3,3,5,5,5,5,8,9,7,7,6,7])];
+        document.getElementById("demo3").innerHTML=numbers.sort();
+
+
+    </script>
+</body>
+</html>

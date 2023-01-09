@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./crud2.css">
+</head>
+<body>
+    <h1><center>JS crud example</center></h1>
+    <hr>
+    <div class="employeeform">
+        <form onclick="event.preventDefault();onFormSubmit();" autocomplete="off">
+        <div>
+            <label>Full Name*</label><label class="validation-error hide" id="fullnamevalidationerror">This field is required.</label>
+            <input type="text" name="fullname" id="fullname">
+        </div>
+        <div>
+            <label>EMAILID</label>
+            <input type="text" name="email" id="email">
+        </div>
+        <div>
+            <label>Salary</label>
+            <input type="text" name="salary" id="salary">
+        </div>
+        <div>
+            <label>City</label>
+            <input type="text" name="city" id="city">
+        </div>
+        <div class="formactionbuttons">
+            <input type="submit" value="submit">
+        </div>
+        </form>
+    </div>
+    <br/>
+    <div class="employeestable">
+        <table class="list" id="employeelist">
+            <thead>
+                <tr>
+                    <th>Full name</th>
+                    <th>email</th>
+                    <th>Salary</th>
+                    <th>City</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <script src="./crud2.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./filterlist.css">
+</head>
+<body>
+    <h2>Name Search</h2>
+    <input type="text" id="myInput"  onkeyup="myFunction()" placeholder="search for names..." title="enter the name">
+    <ul id="myUL">
+        <li><a href="#">Adele</a></li>
+        <li><a href="#">Agnes</a></li>
+
+        <li><a href="#">Billy</a></li>
+        <li><a href="#">Bob</a></li>
+
+        <li><a href="#">Calvin</a></li>
+        <li><a href="#">Christiana</a></li>
+        <li><a href="#">Cindy</a></li>
+        <li><a href="#">Kalieswar</a></li>
+    </ul>
+
+    <script>
+    function myFunction() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1){
+                    li[i].style.display = "block";
+                }else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    
+    </script>
+</body>
+</html>

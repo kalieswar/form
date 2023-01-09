@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Global "use strict" declaration.</h2>
+
+<p>Activate debugging in your browser (F12) to see the error report.</p>
+
+
+<script>
+x = 3.14;    // This will not cause an error.
+myFunction();
+
+function myFunction() {
+  "use strict";
+  y = 3.14;  // This will cause an error (y is not defined).
+}
+
+</script>
+</body>
+</html>
